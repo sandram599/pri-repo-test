@@ -22,5 +22,15 @@ public class Main {
         new JPaintController(uiModule, appState);
         
         paintCanvas.addMouseListener(new ClickHandler(paintCanvas));
+
+        final List<CreateShape> list = new ArrayList<CreateShape>();
+        IShapeSubject sList = new ShapesList(list);
+        
+        IShapeObserver observers = new CreateShape(paintCanvas);
+        sList.registerObservers(observers);
+        
+        }        
+}
+
     }
 }
