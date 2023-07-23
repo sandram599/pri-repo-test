@@ -27,6 +27,7 @@ public class CreateShape implements ICommand, IUndoable, IShapeObserver {
 	private ShapeShadingType shapeshadingtype;
 	private Color primaryC, secondaryC;
 	private int x, y;
+	private int width, height;
 
 
 	//constructor declare it in main and pass into paint canvas & createshape constructor
@@ -46,7 +47,26 @@ public class CreateShape implements ICommand, IUndoable, IShapeObserver {
 		this.secondaryC = secondaryC;
 		this.endPoint = endPoint;
 		this.startPoint = startPoint;
-	 }
+		
+		this.width = startPoint.x - endPoint.x;
+		this.height = startPoint.y - endPoint.y;
+	}
+	
+	public int getX() {
+		return x;
+	}
+	
+	public int getY() {
+		return y;
+	}
+	
+	public int getHeight() {
+		return height;
+	}
+	
+	public int getWidth() {
+		return width;
+	}
 	 
 
 	@Override
@@ -115,9 +135,14 @@ public class CreateShape implements ICommand, IUndoable, IShapeObserver {
 
 	@Override
 	public void update() {
-		Graphics2D graphics2d = (Graphics2D) paintCanvas.getGraphics();
-		graphics2d.setColor(Color.WHITE);
-		graphics2d.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+		//Graphics2D graphics2d = (Graphics2D) paintCanvas.getGraphics();
+		//graphics2d.setColor(Color.WHITE);
+		//graphics2d.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
 		paintCanvas.repaint();					
 	} 
 }
+
+	
+		
+	
+	
