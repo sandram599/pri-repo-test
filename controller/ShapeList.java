@@ -1,31 +1,74 @@
-package controller;
+package model;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.List;
 
-import view.gui.PaintCanvas;
+import controller.CreateShape;
+import controller.selectShapes;
+import model.interfaces.IShapeObserver;
+import model.interfaces.IShapeSubject;
 
-public class ShapeList implements IShapeList {
 
-	private ArrayList<IShape> shapeList;
+public class ShapesList implements IShapeSubject {
 	
-	public ShapeList(ArrayList<IShape> shapeList) {
-		this.shapeList = shapeList;
+	private List<IShapeObserver> shapeObservers = new ArrayList<IShapeObserver>();
+	private ArrayList<CreateShape> shapeList  = new ArrayList<CreateShape>(); ;
+	ArrayList<CreateShape> selectedshapes = new ArrayList<CreateShape>();
+
+	
+	public ShapesList(List<CreateShape> list) {
+		//ArrayList<createShape> selectedshapes = new ArrayList<createShape>();
+		//ArrayList<IShapeObserver> observers = new ArrayList<IShapeObserver>();
+		//ArrayList<createShape> shapeList = new ArrayList<createShape>();
+		
 	}
-	
-	private PaintCanvas paintCanvas;
-	
-	public void add(IShape shape) {
+	@Override
+	public void registerObservers(IShapeObserver observer) {
+		shapeObservers.add(observer);
+		
+	}
+
+	@Override
+	public void add(CreateShape shape) {
 		shapeList.add(shape);
-		paintCanvas.repaint();
+		notifyObservers();		
 	}
-	
-	public void remove(IShape shape) {
-		shapeList.remove(shape);
-		paintCanvas.repaint();
 
+	@Override
+	public void notifyObservers() {
+		for(var shapeObserver : shapeObservers) {
+			shapeObserver.update();			
+		}		
 	}
-	
-	public ArrayList<IShape> getShapeList() {
+
+	@Override
+	public void remove(CreateShape shape) {
+		shapeList.remove(shape);
+		notifyObservers();
+	}
+
+	public List<CreateShape> getshapelist() {
 		return shapeList;
 	}
+
+	@Override
+	public boolean isIn() {
+		return false;
+	}
+	
+	public void addSelectShape(CreateShape shape) 	{
+		selectedshapes.add(shape);
+	}
+	
+	public List<CreateShape> getselectedshapes() {
+		return selectedshapes;
+	}
+	public void draw(CreateShape shape) {
+		for(CreateShape s : shapeList) {
+			s.makeShape(s);
+			
+		}
+	}
 }
+
