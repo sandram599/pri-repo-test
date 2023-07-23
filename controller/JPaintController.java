@@ -29,14 +29,16 @@ public class JPaintController implements IJPaintController {
         uiModule.addEvent(EventName.UNGROUP, this::ungroup);
     }
 
-    private void undo() {
-    	undo undo = new undo();
-		undo.execute();
+     private void undo() { //paint observable or no
+    	//CommandHistory.undo();
+    	undoCommand u = new undoCommand();
+    	u.run();
     }
 
     private void redo() {
-    	redo redo = new redo();
-    	redo.execute();
+    	//CommandHistory.redo();
+    	redoCommand r = new redoCommand();
+    	r.run();
     }
 
     private void copy() {
