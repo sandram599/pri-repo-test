@@ -16,3 +16,10 @@ Implement Undo/Redo for the shapes.
 //the undo/redo methods code is written, but isn't working in the application. I attempted to pass in the commands in the
 //clickhandler to implement Undo/Redo but it doesn't show on the canvas.
 
+Sprint 2: Second features - 
+Draw rectangles, triangles, and ellipses with various colors and shading types onto the canvas. Two additional design patterns included. 
+Implement Select option, includes a collision detection algorithm to moved by the user.
+Implement Move option, move option allows for shapes to be move by simply clicking and dragging on the canvas. 
+
+//unable to have graphics show up on canvas, wrote loop to call draw method for each shape in paintCanvas, but nothing showing up. Unsure where all the errors are. 
+//implemented design patterns - shapebuilder and observer pattern in week 2 sprint.
