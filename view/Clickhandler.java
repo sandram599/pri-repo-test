@@ -3,63 +3,64 @@ package view;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 
-import controller.createShapeCommand;
+import controller.CreateShape;
+import controller.moveCommand;
+import controller.selectCommand;
+import model.MouseMode;
+import model.Point;
+import model.ShapeShadingType;
+import model.ShapeType;
+import model.ShapesList;
+import model.interfaces.IBB;
+import model.persistence.ApplicationState;
 import view.gui.PaintCanvas;
 
 
-public class ClickHandler extends MouseAdapter {
+public class ClickHandler extends MouseAdapter { 
 	
-		Point startPoint = new Point();
-		Point endPoint = new Point();
-		
-		//instantiate createShape class
-		
-		//constructor for clickhandler
-		private int height;
-		private int width;
+		Point startPoint, endPoint;
 		private PaintCanvas paintCanvas;
-		private createShapeCommand createShape;
-				
-		//the algorithm for mouseRelease is:
-		//endPoint.x - startPoint.x
-		//endPoint.y - endPoint.y
-		//fillRect(x,y,w,h)
-		//then call -> paintCanvas.repaint()
+		private ApplicationState appState;
+		private Color primaryC, secondaryC;
+		private ShapeShadingType shapeshadingtype;
+		public ShapeType shapetype;
+		private ShapesList shapeList;
 
 
-		public ClickHandler(PaintCanvas paintCanvas) {
-			this.paintCanvas = paintCanvas; //passing the reference into the clickhandler
+		public ClickHandler(PaintCanvas paintCanvas, ApplicationState appState) {
+			this.paintCanvas = paintCanvas; 
+			this.appState = appState;
 		}
 		
-		public ClickHandler(createShapeCommand createShape, PaintCanvas paintCanvas) { //trying passing undo and redo methods??
-			this.createShape = createShape;
-			this.paintCanvas = paintCanvas;
-		}
-
-
 		@Override
 		public void mousePressed(MouseEvent e) { 
-			startPoint.x = e.getX();
-			startPoint.y = e.getY();
+			startPoint = new Point(e.getX(), e.getY());
 		}
 			
 		@Override		
-		public void mouseReleased(MouseEvent e) { 
+		public void mouseReleased(MouseEvent e) { 		
+			endPoint = new Point(e.getX(),e.getY());
 			
-			Graphics2D graphics2d = (Graphics2D) paintCanvas.getGraphics();
-			endPoint.x = e.getX();
-			endPoint.y = e.getY();
+			switch(appState.getActiveMouseMode()) {
 			
-			width = endPoint.x - startPoint.x;
-			height = endPoint.x - startPoint.y;
-			graphics2d.setColor(Color.GREEN); 
-			graphics2d.fillRect(startPoint.x, startPoint.y, width, height); 
-			graphics2d.drawRect(startPoint.x, startPoint.y, width, height);
-			
-			//paintCanvas.repaint();
-			//call PaintCanvas somehow
-	}
-		
-}
+			case DRAW:
+				CreateShape shape = new CreateShape(startPoint,endPoint, paintCanvas, appState, shapetype, secondaryC, shapeshadingtype, primaryC);
+				shape.run();
+				break;
+			case MOVE: 
+				moveCommand movedshape = new moveCommand (paintCanvas, shapeList);
+				movedshape.run();
+				break;
+			case SELECT:
+				selectCommand selectedShape = new selectCommand(shapeList, paintCanvas);
+				selectedShape.run();
+				break;
+			default:
+				System.out.println("Please choose to draw, move, or select the shape.");
+				break;
 
+		}
+	}
+}
