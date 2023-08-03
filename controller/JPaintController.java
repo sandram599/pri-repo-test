@@ -1,12 +1,25 @@
 package controller;
 
+import model.Point;
+import model.ShapeList;
 import model.interfaces.IApplicationState;
+import model.interfaces.IJPaintController;
+import model.persistence.ApplicationState;
 import view.EventName;
+import view.gui.PaintCanvas;
 import view.interfaces.IUiModule;
+import controller.redoCommand;
+import controller.undoCommand;
 
 public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
+	private PaintCanvas paintCanvas;
+	private ShapeList shapeList;
+	private ApplicationState appState;
+	private ShapeBuilder shapebuilder;
+	private Point startPoint;
+	private Point endPoint;
 
     public JPaintController(IUiModule uiModule, IApplicationState applicationState) {
         this.uiModule = uiModule;
@@ -29,25 +42,29 @@ public class JPaintController implements IJPaintController {
         uiModule.addEvent(EventName.UNGROUP, this::ungroup);
     }
 
-     private void undo() { //paint observable or no
-    	//CommandHistory.undo();
+    private void undo() { 
     	undoCommand u = new undoCommand();
     	u.run();
     }
 
     private void redo() {
-    	//CommandHistory.redo();
     	redoCommand r = new redoCommand();
     	r.run();
     }
 
     private void copy() {
+    	copyCommand c = new copyCommand(paintCanvas, shapeList);
+    	c.run();
     }
 
     private void paste() {
+    	pasteCommand p = new pasteCommand(paintCanvas, appState, shapebuilder, shapeList);
+    	p.run();
     }
 
     private void delete() {
+    	deleteCommand d = new deleteCommand(paintCanvas, shapeList, startPoint, endPoint);
+    	d.run();
     }
 
     private void group() {
