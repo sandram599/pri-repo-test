@@ -1,53 +1,76 @@
 package controller;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import model.Point;
-import model.ShapesList;
-import model.interfaces.IBB;
+import model.ShapeList;
 import model.interfaces.ICommand;
+import model.interfaces.IShape;
+import model.interfaces.IShapeObserver;
 import model.interfaces.IShapeSubject;
 import model.interfaces.IUndoable;
+import model.interfaces.Shape;
+import model.persistence.ApplicationState;
 import view.gui.PaintCanvas;
 
-public class moveCommand implements ICommand, IUndoable {
+public class moveCommand implements ICommand, IUndoable, IShapeObserver {
 
 	private Point startPoint, endPoint;
+	private ApplicationState appState;
 	private PaintCanvas paintCanvas;
-	ShapesList shapeList;
-	int xDelta, yDelta;
-	//CreateShape shape;
-	private ArrayList<CreateShape> movedshapes; //the new shape
-	private IBB b;
+	private ShapeList shapeList;
+	private int xDelta, yDelta;
+	private IShape shape;
+	private ArrayList<IShape> tempshapelist;
 	
-	public moveCommand(PaintCanvas paintCanvas, ShapesList shapeList) {
-		this.paintCanvas = paintCanvas;	
+	
+	public moveCommand(Point startPoint, Point endPoint, PaintCanvas paintCanvas, ShapeList shapeList) {
+		this.startPoint = startPoint;
+		this.endPoint = endPoint;
+		this.paintCanvas = paintCanvas;
 		this.shapeList = shapeList;
 		
-		xDelta = b.grabEnd().getX() - b.grabStart().getX();
-		yDelta = b.grabEnd().getY() - b.grabStart().getY();
-	}
+		xDelta = endPoint.getX() - startPoint.getX();
+		yDelta = endPoint.getY() - startPoint.getY();
 
-	@
-	Override
+		//instantiating the shapelist here
+		tempshapelist = new ArrayList<IShape>();
+	}
+	
+	@Override
 	public void redo() {
-		for(CreateShape movedshape : shapeList.getselectedshapes())
-			movedshape.moved(xDelta, yDelta);
+		for(IShape shape : tempshapelist) {
+			shape.move(xDelta, yDelta);
+		}
+		paintCanvas.repaint();
 	}
-
+	
 	@Override
 	public void undo() {
-		for(CreateShape movedshape : shapeList.getselectedshapes())
-			movedshape.moved(-xDelta, -yDelta);
+		for(IShape shape : tempshapelist) {
+			shape.move(-xDelta, -yDelta);
+		}
+		paintCanvas.repaint();
 	}
 
 	@Override
-	public void run() {
-		for(CreateShape moveshape : shapeList.getselectedshapes()) {
-			moveshape.moved(xDelta, yDelta);
-			movedshapes.add(moveshape);
+	public void run() {		
+		CommandHistory.add(this); 
+		for(IShape shape : shapeList.selectedshapeList()) { 
+			tempshapelist.add(shape); //nothing is being added here yet
+			shape.move(xDelta, yDelta);
 		}
-		
-	} 	
+		paintCanvas.repaint();
+	}
 
+	@Override
+	public void update() {
+	Graphics2D graphics2d = (Graphics2D) paintCanvas.getGraphics();
+		graphics2d.setColor(Color.WHITE);
+		graphics2d.fillRect(0, 0, paintCanvas.getWidth(), paintCanvas.getHeight());
+		paintCanvas.repaint();			
+	}
 }
+
