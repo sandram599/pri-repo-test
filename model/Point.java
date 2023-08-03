@@ -1,5 +1,7 @@
 package model;
 
+import controller.ShapeBuilder;
+
 public class Point {
 	
 	public int x;
@@ -15,6 +17,14 @@ public class Point {
 	}
 	
 	public int getY() {
+		return y;
+	}
+	
+	public int setX() {
+		return x;
+	}
+	
+	public int setY() {
 		return y;
 	}
 }
