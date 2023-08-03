@@ -2,17 +2,16 @@ package model.interfaces;
 
 import java.util.List;
 
-import controller.CreateShape;
+import controller.createshapeCommand;
 
 public interface IShapeSubject {
 	
 	void registerObservers(IShapeObserver observer);
 	void notifyObservers();
-	void add(CreateShape shape);
-	void remove(CreateShape shape);
-	public List<CreateShape> getshapelist();
-	boolean isIn();
-	void addSelectShape(CreateShape shape);
-	public List<CreateShape> getselectedshapes();
+	void add(IShape shape);
+	void remove(IShape shape);
+	public List<IShape> getshapelist();
+	public List<IShape> getselectedshapesList();
+	public List<IShape> getClipBoard();
 
 }
