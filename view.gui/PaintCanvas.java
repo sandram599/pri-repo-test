@@ -2,9 +2,9 @@ package view.gui;
 
 import javax.swing.JComponent;
 
-import controller.CreateShape;
-import model.ShapesList;
-import model.interfaces.IShapeDraw;
+import controller.createshapeCommand;
+import model.ShapeList;
+import model.interfaces.IShape;
 import model.interfaces.IShapeSubject;
 
 import java.awt.*;
@@ -13,22 +13,27 @@ import java.util.ArrayList;
 
 public class PaintCanvas extends JComponent {
 	
+	private ShapeList shapeList;
+
 	public Graphics2D getGraphics2D() {
 		return (Graphics2D) getGraphics();
 	}
-
-	private ShapesList shapeList;
-	private CreateShape newshape;
 	
-	public void paint(Graphics2D g) {
-		//super.paint(g);
-		Graphics2D g2d = (Graphics2D) g.create();
-		for(CreateShape shape : shapeList.getshapelist()) {
-		shape.makeShape(newshape);
+	public PaintCanvas(ShapeList shapeList) {
+		this.shapeList = shapeList;
+		
+	}
+	@Override
+	public void paint(Graphics g) { 
+		
+		Graphics2D g2d = (Graphics2D) g;
+		
+		for(IShape shape : shapeList.getshapelist()) { 
+		shape.draw(g2d);
 		}
 	}
-	
-}
+}	
+
 
 
 
