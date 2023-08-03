@@ -4,34 +4,41 @@ import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-import controller.CreateShape;
-import controller.selectShapes;
+import controller.createshapeCommand;
+import model.interfaces.IShape;
 import model.interfaces.IShapeObserver;
 import model.interfaces.IShapeSubject;
+import model.interfaces.Shape;
+import view.gui.PaintCanvas;
 
 
-public class ShapesList implements IShapeSubject {
+public class ShapeList implements IShapeSubject {
 	
 	private List<IShapeObserver> shapeObservers = new ArrayList<IShapeObserver>();
-	private ArrayList<CreateShape> shapeList  = new ArrayList<CreateShape>(); ;
-	ArrayList<CreateShape> selectedshapes = new ArrayList<CreateShape>();
-
+	private List<IShape> shapeList  = new ArrayList<IShape>(); ;
+	private List<IShape> selectedshapesList = new ArrayList<IShape>();
+	private List<IShape> clipBoard = new ArrayList<IShape>(); //move to notifyobservers
 	
-	public ShapesList(List<CreateShape> list) {
-		//ArrayList<createShape> selectedshapes = new ArrayList<createShape>();
+	private PaintCanvas paintCanvas;
+	
+
+	public ShapeList(List<IShape> list) {
+		//ArrayList<IShape> selectedshapes = new ArrayList<IShape>();
 		//ArrayList<IShapeObserver> observers = new ArrayList<IShapeObserver>();
-		//ArrayList<createShape> shapeList = new ArrayList<createShape>();
+		//ArrayList<IShape> shapeList = new ArrayList<IShape>();
 		
 	}
+	
 	@Override
 	public void registerObservers(IShapeObserver observer) {
 		shapeObservers.add(observer);
-		
 	}
 
 	@Override
-	public void add(CreateShape shape) {
+	public void add(IShape shape) {
 		shapeList.add(shape);
+		selectedshapesList.add(shape);
+		clipBoard.add(shape);
 		notifyObservers();		
 	}
 
@@ -43,32 +50,27 @@ public class ShapesList implements IShapeSubject {
 	}
 
 	@Override
-	public void remove(CreateShape shape) {
+	public void remove(IShape shape) {
 		shapeList.remove(shape);
+		selectedshapesList.remove(shape);
+		clipBoard.remove(shape);
 		notifyObservers();
 	}
 
-	public List<CreateShape> getshapelist() {
+	public List<IShape> getshapelist() {
 		return shapeList;
 	}
-
+	
+	public List<IShape> getselectedshapesList() {
+		return selectedshapesList;
+	}
+	
+	public List<IShape> selectedshapeList(){
+		return selectedshapesList;
+	}
+	
 	@Override
-	public boolean isIn() {
-		return false;
-	}
-	
-	public void addSelectShape(CreateShape shape) 	{
-		selectedshapes.add(shape);
-	}
-	
-	public List<CreateShape> getselectedshapes() {
-		return selectedshapes;
-	}
-	public void draw(CreateShape shape) {
-		for(CreateShape s : shapeList) {
-			s.makeShape(s);
-			
-		}
+	public List<IShape> getClipBoard() {
+		return clipBoard;
 	}
 }
-
