@@ -3,55 +3,71 @@ package controller;
 import java.awt.Color;
 
 import model.Point;
+import model.ShapeColor;
 import model.ShapeShadingType;
 import model.ShapeType;
+import model.interfaces.IShape;
+import model.interfaces.Shape;
 import model.persistence.ApplicationState;
 import view.gui.PaintCanvas;
 
-//build shapes by using the builder pattern
+//build shapes by using the builder pattern 
 
-public class buildShape { 
+public class ShapeBuilder { 
 	
 	private Point startPoint, endPoint;
+	private int height, width;
+	private ShapeColor primary, secondary;
 	private ShapeType shapetype;
-	private ShapeShadingType shapeshadingtype;
-	private Color primaryC, secondaryC;
-	private PaintCanvas paintCanvas;
-	private ApplicationState appState;
+	private nullObject shapetype1;
+	private ShapeShadingType shade;
+	private IShape shape;
 	
-	
-	public buildShape shapetype(ShapeType shapetype) {
-		this.shapetype = shapetype;
-		return this;
+	public ShapeShadingType getShadingType(ShapeShadingType shade) {
+		return this.shade = shade;
 	}
 	
-	public buildShape shapeshadingtype(ShapeShadingType shapeshadingtype) {
-		this.shapeshadingtype = shapeshadingtype;
-		return this;
+	public Point Start(Point startPoint) {
+		 return this.startPoint = startPoint;
 	}
 	
-	public buildShape primaryC(Color primaryC) {
-		this.primaryC = primaryC;
-		return this;
+	public Point End(Point endPoint) {
+		return this.endPoint = endPoint;
 	}
 	
-	public buildShape secondaryC(Color secondaryC) {
-		this.secondaryC = secondaryC;
-		return this;
+	public int getHeight() {
+		return this.height = endPoint.getY() - startPoint.getY();
+		
 	}
 	
-	public buildShape startPoint(Point startPoint) {
-		this.startPoint = startPoint;
-		return this;
+	public int getWidth() {
+		return this.width = endPoint.getX() - startPoint.getX();
 	}
 	
-	public buildShape endPoint(Point endPoint) {
-		this.endPoint = endPoint;
-		return this;
+	public ShapeColor primary(ShapeColor shapeColor) {
+		return this.primary = shapeColor;
 	}
 	
+	public ShapeColor secondary(ShapeColor secondary) {
+		 return this.secondary = secondary;
+	}
 	
-	public CreateShape toBuild() {
-		return new CreateShape (startPoint, endPoint, paintCanvas, appState, shapetype, primaryC, shapeshadingtype, secondaryC);
+	public ShapeType getShapeType (ShapeType shapetype) {
+		return this.shapetype = shapetype;
+	}
+	public IShape toBuild() {  
+			
+		switch(shapetype) { 
+
+		case ELLIPSE: 
+			return new drawEllipse(startPoint, endPoint, primary, secondary, shade, shapetype, getHeight(), getWidth());
+		case RECTANGLE:
+			return new drawRectangle(startPoint, endPoint, primary, secondary, shade, shapetype, getHeight(), getWidth());
+		case TRIANGLE:
+			return new drawTriangle(startPoint, endPoint, primary, secondary, shade, shapetype, getHeight(), getWidth());
+		default:
+			shapetype1 = new nullObject();				
+		}
+		return shape;
 	}
 }
