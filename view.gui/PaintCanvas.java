@@ -24,12 +24,18 @@ public class PaintCanvas extends JComponent {
 		
 	}
 	@Override
-	public void paint(Graphics g) { 
+	ppublic void paint(Graphics g) { 
 		
 		Graphics2D g2d = (Graphics2D) g;
 		
 		for(IShape shape : shapeList.getshapelist()) { 
-		shape.draw(g2d);
+			for(IShape s : shapeList.selectedshapeList()) {
+				//boolean isIn = 
+				//if(s.isIn == true) {
+					//shape.shapeOutline(g2d);
+					shape.draw(g2d);
+				//}
+			}
 		}
 	}
 }	
