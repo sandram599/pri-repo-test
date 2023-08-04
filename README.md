@@ -23,3 +23,9 @@ Implement Move option, move option allows for shapes to be move by simply clicki
 
 //unable to have graphics show up on canvas, wrote loop to call draw method for each shape in paintCanvas, but nothing showing up. Unsure where all the errors are. 
 //implemented design patterns - shapebuilder and observer pattern in week 2 sprint.
+
+Sprint 3: Third features - 
+Copy, Paste, Delete, Outline Selected Shape and Undo/Redo. Have at least 4 design patterns implemented in code. From week 2 sprint, multiple shapes are able to drawn, outline and/or filled with different colors, and shapes are able to move around the canvas when selected. 
+4 Design patterns implemented so far - IShapeObserver pattern in Model.Interfaces, ShapeBuilder pattern and Null Object pattern in Controller folder. Attemped Singleton pattern in SelectCommand, instance - if shape is null or no shapes, nullobject will be called. 
+//Sprint 3 BUGS - Have code written for all 3 features, however I am continuously getting 'shapeList is null' error for Delete/Copy/Paste. I am able to use select on the canvas for my Move Command and run the move command just fine, and my run method for my delete command is very similar to my move method, but shapelist appears null for copy/delete/paste. 
+Missing Features - For outline selected shape, code written for each shape outline and wrote the ShapeUutline code in paintcanvas to run when shape is selected, but is commented out in paintcanvas.
