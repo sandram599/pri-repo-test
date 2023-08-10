@@ -78,13 +78,17 @@ public class nullObject implements IShape {
 	}
 
 	@Override
-	public void shapeOutline(Graphics2D g) {
-		System.out.println("unable to outline selected shape");
-	}
-
-	@Override
 	public ShapeList getshapeList() {
 		return null;
 		
 	} 
+	
+	public IShape shape() {
+		return null;
+	}
+
+	@Override
+	public void outline(Graphics2D g) {
+		System.out.println("unable to outline shape");
+	}
 }
