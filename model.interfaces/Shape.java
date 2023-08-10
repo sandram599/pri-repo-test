@@ -29,8 +29,7 @@ public class Shape implements IShape {
 		this.width = width;
 		this.shade = shade;
 		this.shapetype = shapetype;	
-		this.x = startPoint.x;
-		this.y = startPoint.y;
+
 	}
 	
 
@@ -90,44 +89,29 @@ public class Shape implements IShape {
 		return shade;
 	}
 
-
-	public boolean isIn(Point startPoint) {
-		return false;
-	}
-
-
-	public void moved(int xDelta, int yDelta) {
-		// TODO Auto-generated method stub
-		
-		
+	public void moved(int xDelta, int yDelta) {	
 	}
 
 
 	@Override
 	public ShapeBuilder getShapeBuilder() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-
 	@Override
 	public void move(int xDelta, int yDelta) {
-		// TODO Auto-generated method stub
 
 	}
-
-
-
-	@Override
-	public void shapeOutline(Graphics2D g) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	@Override
 	public ShapeList getshapeList() {
 		return shapeList;
 		
 	}
+
+	@Override
+	public void outline(Graphics2D g) {
+		
+	}
 }
+
