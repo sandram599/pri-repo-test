@@ -34,7 +34,7 @@ public class Main {
         final List<IShape> list = new ArrayList<IShape>();
         ShapeList sList = new ShapeList(list);
 		
-		ShapeBuilder shapebuilder = new ShapeBuilder();
+	ShapeBuilder shapebuilder = new ShapeBuilder();
         PaintCanvas paintCanvas = new PaintCanvas(sList);
         IGuiWindow guiWindow = new GuiWindow(paintCanvas);
         IUiModule uiModule = new Gui(guiWindow);
