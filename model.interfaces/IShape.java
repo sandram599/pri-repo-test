@@ -26,6 +26,7 @@ public interface IShape {
 	void draw(Graphics2D g); 
 	ShapeBuilder getShapeBuilder();
 	void move(int xDelta, int yDelta);
-	void shapeOutline(Graphics2D g);
 	ShapeList getshapeList();
+	void outline(Graphics2D g);
+	
 }
