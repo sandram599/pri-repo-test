@@ -8,8 +8,11 @@ import java.util.List;
 import controller.JPaintController;
 import controller.ShapeBuilder;
 import controller.createshapeCommand;
+import controller.selectCommand;
+import model.Point;
 import model.ShapeColor;
 import model.ShapeList;
+import model.ShapeType;
 import model.interfaces.IApplicationState;
 import model.interfaces.IShape;
 import model.interfaces.IShapeObserver;
@@ -39,7 +42,7 @@ public class Main {
 
         ApplicationState appState = new ApplicationState(uiModule);
 
-        new JPaintController(uiModule, appState);
+        new JPaintController(uiModule, appState, sList, paintCanvas, sList, appState, shapebuilder);
         
         paintCanvas.addMouseListener(new ClickHandler(paintCanvas, appState, sList));
         
