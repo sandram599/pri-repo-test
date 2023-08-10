@@ -2,7 +2,9 @@ package controller;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
+import model.MouseMode;
 import model.Point;
 import model.ShapeList;
 import model.interfaces.ICommand;
@@ -19,7 +21,8 @@ public class selectCommand implements ICommand, IShapeObserver {
 	private Point startPoint, endPoint, xPoint, yPoint;
 	private int height, width;
 	private ShapeList shapeList;
-
+	private static IShape IShape; 
+	
 	public selectCommand(Point startPoint, Point endPoint, PaintCanvas paintCanvas, ShapeList shapeList) {
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
@@ -36,7 +39,7 @@ public class selectCommand implements ICommand, IShapeObserver {
 
 	@Override
 	public void run() {
-		//collision detection for bounding box		
+		//collision detection for bounding box
 		shapeList.selectedshapeList().clear();
 		for(IShape shape : shapeList.getshapelist()) { 
 			
@@ -46,11 +49,21 @@ public class selectCommand implements ICommand, IShapeObserver {
 			+ height && shape.getStartPoint().getY() + shape.getHeight() > 
 			  yPoint.getY()) {
 				
-			shapeList.selectedshapeList().add(shape);	
+			shapeList.selectedshapeList().add(shape);
 			}
 		}
 			paintCanvas.repaint();
 	}
+	
+	//attempting singleton pattern
+	public static Shape getInstance() { //make sure a shape is chosen
+		if(IShape == null) {
+			IShape = new nullObject();
+			System.out.println("no null object allowed");
+		}
+		return null;
+	}
+	
 
 
 	@Override
@@ -61,4 +74,3 @@ public class selectCommand implements ICommand, IShapeObserver {
 		paintCanvas.repaint();	
 	}
 }
-	
