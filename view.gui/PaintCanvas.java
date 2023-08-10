@@ -3,9 +3,12 @@ package view.gui;
 import javax.swing.JComponent;
 
 import controller.createshapeCommand;
+import model.MouseMode;
 import model.ShapeList;
+import model.ShapeType;
 import model.interfaces.IShape;
 import model.interfaces.IShapeSubject;
+import model.persistence.ApplicationState;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -13,7 +16,9 @@ import java.util.ArrayList;
 
 public class PaintCanvas extends JComponent {
 	
+	private ApplicationState appState;
 	private ShapeList shapeList;
+	private ShapeType shapetype;
 
 	public Graphics2D getGraphics2D() {
 		return (Graphics2D) getGraphics();
@@ -23,27 +28,24 @@ public class PaintCanvas extends JComponent {
 		this.shapeList = shapeList;
 		
 	}
+	
 	@Override
-	ppublic void paint(Graphics g) { 
-		
+	public void paint(Graphics g) { 
+
 		Graphics2D g2d = (Graphics2D) g;
-		
-		for(IShape shape : shapeList.getshapelist()) { 
-			for(IShape s : shapeList.selectedshapeList()) {
-				//boolean isIn = 
-				//if(s.isIn == true) {
-					//shape.shapeOutline(g2d);
-					shape.draw(g2d);
-				//}
-			}
+
+		for(IShape shape : shapeList.getshapelist()) {
+			shape.draw(g2d);
 		}
-	}
+		for(IShape temp : shapeList.selectedshapeList()) {
+			temp.draw(g2d);
+			temp.outline(g2d);
+		}
+		for(IShape copy : shapeList.pasteList()) {
+			copy.draw(g2d);
+		}
+	} 
 }	
-
-
-
-
-
       // Graphics2D graphics2d = (Graphics2D) g;
        
 
