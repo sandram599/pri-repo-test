@@ -15,15 +15,21 @@ public class JPaintController implements IJPaintController {
     private final IUiModule uiModule;
     private final IApplicationState applicationState;
 	private PaintCanvas paintCanvas;
-	private ShapeList shapeList;
+	private ShapeList shapeList,clipBoard, pasteList;
 	private ApplicationState appState;
 	private ShapeBuilder shapebuilder;
 	private Point startPoint;
 	private Point endPoint;
+	private ShapeType shapetype;
 
     public JPaintController(IUiModule uiModule, IApplicationState applicationState) {
         this.uiModule = uiModule;
         this.applicationState = applicationState;
+	this.shapeList = shapeList;
+        this.paintCanvas = paintCanvas;
+        this.clipBoard = clipBoard;
+        this.appState = appState;
+        this.shapebuilder = shapebuilder;
         setupEvents();
     }
 
@@ -53,17 +59,16 @@ public class JPaintController implements IJPaintController {
     }
 
     private void copy() {
-    	copyCommand c = new copyCommand(paintCanvas, shapeList);
+	copyCommand c = new copyCommand(paintCanvas, shapeList, endPoint, startPoint, shapeList, appState);
     	c.run();
     }
 
     private void paste() {
-    	pasteCommand p = new pasteCommand(paintCanvas, appState, shapebuilder, shapeList);
+	pasteCommand p = new pasteCommand(paintCanvas, appState, shapeList, startPoint, endPoint);
     	p.run();
     }
 
     private void delete() {
-    	deleteCommand d = new deleteCommand(paintCanvas, shapeList, startPoint, endPoint);
     	d.run();
     }
 
