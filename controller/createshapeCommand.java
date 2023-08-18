@@ -1,5 +1,3 @@
-package controller;
-
 import model.ShapeList;
 import model.Point;
 import model.ShapeColor;
@@ -27,11 +25,11 @@ public class createshapeCommand implements ICommand, IUndoable, IShapeObserver {
 	private Color primary, secondary;
 	private int width, height;
 	private IShape shape;
-	private ShapeBuilder shapebuilder;
+	private shapeBuilder shapebuilder;
 	private ShapeList shapeList;
 
 	
-	 public createshapeCommand(ApplicationState appState, PaintCanvas paintCanvas, ShapeList shapeList, ShapeBuilder shapebuilder) {
+	 public createshapeCommand(ApplicationState appState, PaintCanvas paintCanvas, ShapeList shapeList, shapeBuilder shapebuilder) {
 		this.appState = appState;
 		this.paintCanvas = paintCanvas;
 		this.shapeList = shapeList;
@@ -42,7 +40,7 @@ public class createshapeCommand implements ICommand, IUndoable, IShapeObserver {
 	@Override
 	public void run() {  
 		CommandHistory.add(this);
-		shape = shapebuilder.toBuild();	
+		shape = shapebuilder.toBuild();	//part of builder pattern design 
 		shapeList.add(shape);
 	}
 
@@ -66,4 +64,3 @@ public class createshapeCommand implements ICommand, IUndoable, IShapeObserver {
 		paintCanvas.repaint();						
 	}		
 }
-
