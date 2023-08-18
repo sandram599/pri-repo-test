@@ -18,7 +18,6 @@ public class deleteCommand implements ICommand, IUndoable, IShapeObserver {
 
 	PaintCanvas paintCanvas;
 	private ApplicationState appState;
-	private IShape shape;
 	private ArrayList<IShape> tempshapelist;
 	private Point startPoint, endPoint;
 	private ShapeList shapeList;
@@ -56,10 +55,10 @@ public class deleteCommand implements ICommand, IUndoable, IShapeObserver {
 		for(IShape shape : shapeList.selectedshapeList()) { 
 			tempshapelist.add(shape);
 			shapeList.remove(shape);
-			//another for loop for the copy and paste shapes to be removed too
 		}
-			paintCanvas.repaint();
-	}		
+		shapeList.selectedshapeList().clear();			
+		paintCanvas.repaint();
+	}
 
 	@Override
 	public void update() {
