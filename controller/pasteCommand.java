@@ -17,21 +17,18 @@ import model.interfaces.Shape;
 import model.persistence.ApplicationState;
 import view.gui.PaintCanvas;
 
-public class pasteCommand implements ICommand, IUndoable, IShapeObserver, Cloneable { //attempting a deep copy
+public class pasteCommand implements ICommand, IUndoable, IShapeObserver { 
 
 	PaintCanvas paintCanvas;
 	private ShapeList shapeList;
 	private ApplicationState appState;
 	private ArrayList<IShape> templist = new ArrayList<IShape>();
-	private int offset = 30;
-	private IShape shape;
+	private int offset = 70;
 	private Point startPoint, endPoint;
 	private ShapeColor primary;
 	private ShapeColor secondary;
 	private ShapeType shapeType;
 	private ShapeShadingType shadeType;
-	private int height;
-	private int width;
 	private IShape shapeCopy;
 
 	
@@ -42,7 +39,6 @@ public class pasteCommand implements ICommand, IUndoable, IShapeObserver, Clonea
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
 	}
-
 
 	@Override
 	public void redo() {
@@ -60,25 +56,17 @@ public class pasteCommand implements ICommand, IUndoable, IShapeObserver, Clonea
 		paintCanvas.repaint();
 	}
 
-	
 	@Override 
 	public void run() {  				
 		CommandHistory.add(this); 
 		for(IShape shape : shapeList.clipBoard()) {
+			shape.move(offset, offset);
 			templist.add(shape);
-			shapeList.remove(shape);
+			shapeList.add(shape);
 		}
-
-		for(IShape temp : shapeList.pasteList()) {
-			temp.move(offset, offset);
-			templist.add(temp);
-			shapeList.remove(temp);
-		}		
-
 		paintCanvas.repaint();
-	}
+	}		
 
-	
 	@Override
 	public void update() {
 		Graphics2D graphics2d = (Graphics2D) paintCanvas.getGraphics();

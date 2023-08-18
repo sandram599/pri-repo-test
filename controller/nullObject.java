@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
 import model.Point;
 import model.ShapeColor;
@@ -10,7 +11,7 @@ import model.ShapeShadingType;
 import model.ShapeType;
 import model.interfaces.IShape;
 
-public class nullObject implements IShape {
+public class nullObject implements IShape { //design pattern  - null object pattern 
 
 	@Override
 	public int getX() {
@@ -68,7 +69,7 @@ public class nullObject implements IShape {
 	}
 
 	@Override
-	public ShapeBuilder getShapeBuilder() {
+	public shapeBuilder getShapeBuilder() {
 		return null;
 	}
 
@@ -80,7 +81,6 @@ public class nullObject implements IShape {
 	@Override
 	public ShapeList getshapeList() {
 		return null;
-		
 	} 
 	
 	public IShape shape() {
@@ -90,5 +90,10 @@ public class nullObject implements IShape {
 	@Override
 	public void outline(Graphics2D g) {
 		System.out.println("unable to outline shape");
+	}
+
+	@Override
+	public ArrayList<IShape> getChildren() {
+		return null;
 	}
 }

@@ -21,50 +21,40 @@ public class selectCommand implements ICommand, IShapeObserver {
 	private Point startPoint, endPoint, xPoint, yPoint;
 	private int height, width;
 	private ShapeList shapeList;
-	private static IShape IShape; 
+	private ApplicationState appState;
 	
-	public selectCommand(Point startPoint, Point endPoint, PaintCanvas paintCanvas, ShapeList shapeList) {
+	public selectCommand(Point startPoint, Point endPoint, PaintCanvas paintCanvas, ShapeList shapeList, ApplicationState appState) {
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
 		this.paintCanvas = paintCanvas;
 		this.shapeList = shapeList;
+		this.appState = appState;
 		
-		xPoint = new Point(startPoint.getX(), endPoint.getX());
-		yPoint =  new Point(startPoint.getY(), endPoint.getY());
+		xPoint = new Point(startPoint.x, endPoint.x);
+		yPoint =  new Point(startPoint.y, endPoint.y);
 		
-		width = startPoint.getX() - endPoint.getX();
-		height = startPoint.getY() - endPoint.getY();
+		//width = startPoint.x - endPoint.x;
+		//height = startPoint.y - endPoint.y;
 	}
-
 
 	@Override
 	public void run() {
-		//collision detection for bounding box
+		//collision detection 
 		shapeList.selectedshapeList().clear();
+
 		for(IShape shape : shapeList.getshapelist()) { 
-			
+
 			if(shape.getStartPoint().getX() < xPoint.getX() + width && 
-			shape.getStartPoint().getX() + shape.getWidth() + shape.getWidth() 
-			  > xPoint.getX() && shape.getStartPoint().getY() < yPoint.getY() 
-			+ height && shape.getStartPoint().getY() + shape.getHeight() > 
-			  yPoint.getY()) {
-				
-			shapeList.selectedshapeList().add(shape);
+					shape.getStartPoint().getX() + shape.getWidth() //fix
+					> xPoint.getX() && shape.getStartPoint().getY() < yPoint.getY() 
+					+ height && shape.getStartPoint().getY() + shape.getHeight() > 
+					yPoint.getY()) {
+
+				shapeList.selectedshapeList().add(shape);
 			}
 		}
-			paintCanvas.repaint();
+		paintCanvas.repaint();
 	}
-	
-	//attempting singleton pattern
-	public static Shape getInstance() { //make sure a shape is chosen
-		if(IShape == null) {
-			IShape = new nullObject();
-			System.out.println("no null object allowed");
-		}
-		return null;
-	}
-	
-
 
 	@Override
 	public void update() {
@@ -74,3 +64,4 @@ public class selectCommand implements ICommand, IShapeObserver {
 		paintCanvas.repaint();	
 	}
 }
+	

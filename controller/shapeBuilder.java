@@ -11,15 +11,14 @@ import model.interfaces.Shape;
 import model.persistence.ApplicationState;
 import view.gui.PaintCanvas;
 
-//build shapes by using the builder pattern 
+//design pattern -  builder pattern 
 
-public class ShapeBuilder { 
+public class shapeBuilder { 
 	
 	private Point startPoint, endPoint;
 	private int height, width;
 	private ShapeColor primary, secondary;
 	private ShapeType shapetype;
-	private nullObject shapetype1;
 	private ShapeShadingType shade;
 	private IShape shape;
 	
@@ -37,7 +36,6 @@ public class ShapeBuilder {
 	
 	public int getHeight() {
 		return this.height = endPoint.getY() - startPoint.getY();
-		
 	}
 	
 	public int getWidth() {
@@ -55,8 +53,9 @@ public class ShapeBuilder {
 	public ShapeType getShapeType (ShapeType shapetype) {
 		return this.shapetype = shapetype;
 	}
+	
 	public IShape toBuild() {  
-			
+
 		switch(shapetype) { 
 
 		case ELLIPSE: 
@@ -66,7 +65,6 @@ public class ShapeBuilder {
 		case TRIANGLE:
 			return new drawTriangle(startPoint, endPoint, primary, secondary, shade, shapetype, getHeight(), getWidth());
 		default:
-			shapetype1 = new nullObject();				
 		}
 		return shape;
 	}

@@ -59,7 +59,7 @@ public class moveCommand implements ICommand, IUndoable, IShapeObserver {
 	public void run() {		
 		CommandHistory.add(this); 
 		for(IShape shape : shapeList.selectedshapeList()) { 
-			tempshapelist.add(shape); //nothing is being added here yet
+			tempshapelist.add(shape); 
 			shape.move(xDelta, yDelta);
 		}
 		paintCanvas.repaint();
