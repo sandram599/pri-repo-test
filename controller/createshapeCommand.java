@@ -1,3 +1,5 @@
+package controller;
+
 import model.ShapeList;
 import model.Point;
 import model.ShapeColor;

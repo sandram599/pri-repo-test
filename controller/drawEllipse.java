@@ -1,5 +1,4 @@
-
-	package controller;
+package controller;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
