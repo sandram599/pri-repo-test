@@ -24,7 +24,7 @@ public class copyCommand implements ICommand, IShapeObserver {
 	private ApplicationState appState;
 	Point startPoint, endPoint;
 	private ShapeType shapetype;
-	private ShapeBuilder shapebuilder;
+	private shapeBuilder shapebuilder;
 	private ShapeColor primary;
 	private ShapeColor secondary;
 	private ShapeShadingType shade;
@@ -34,12 +34,13 @@ public class copyCommand implements ICommand, IShapeObserver {
 	private ShapeType shapeType;
 
 	
-	public copyCommand(PaintCanvas paintCanvas, ShapeList shapeList, Point endPoint, Point startPoint, ShapeList clipBoard, ApplicationState appState) {
+	public copyCommand(PaintCanvas paintCanvas, ShapeList shapeList, Point endPoint, Point startPoint, ShapeList clipBoard, ApplicationState appState, ShapeType shapetype) {
 		this.paintCanvas = paintCanvas;
 		this.shapeList = shapeList;	
 		this.startPoint = startPoint;
 		this.endPoint = endPoint;
-		this.appState = appState;		
+		this.appState = appState;
+		this.shapetype = shapetype;
 	}
 
 	@Override
@@ -58,10 +59,7 @@ public class copyCommand implements ICommand, IShapeObserver {
 				shapeCopy =  new drawTriangle(shape.getStartPoint(), shape.getEndPoint(), shape.getPrimary(), shape.getSecondary(),
 						shape.getShadeType(), shape.getShapeType(), shape.getHeight(), shape.getWidth());
 			}
-			shapeList.clipBoard().add(shape);
-			shapeList.pasteList().add(shapeCopy);
-			shapeList.remove(shape);
-			shapeList.remove(shapeCopy);
+			shapeList.clipBoard().add(shapeCopy);
 		}
 		paintCanvas.repaint();
 	}		
