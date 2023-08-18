@@ -9,3 +9,6 @@ public interface IDialogChoice<T> {
 
     T getCurrentSelection();
 }
+
+
+
