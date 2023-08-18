@@ -33,7 +33,7 @@ Missing Features - For outline selected shape, code written for each shape outli
 Check-in 4: Fourth features - 
 Group and Ungroup selected shapes. Grouped selected shapes should operate as if it were one shape, to be moved, deleted, copeid, and pasted. Selected shapes to be grouped should have dashed outline around the selected shapes. Ungrouping selected shapes will ungrouped. Ungroup should also have undo/redo method. Added fifth design pattern - folder pattern in group.java.
 
-//Check-4 BUGS: ungroup and group code is written but doesn't seem to have any effect on the shapes, unless they are overlapping each other. (continual issues with the select command, collision detection code). Was able to draw dashed box on selected shapes, however the box would affect the size of the shapes selected. The box does not follow the outline of the shapes. When shapes are overlapped, I am able to copy, paste and delete, as needed but only if overlapping. 
+//Check-4 BUGS: ungroup and group code is written but doesn't seem to have any effect on the shapes, unless they are overlapping each other. (continual issues with the select command, collision detection code). Was able to draw dashed box on selected shapes, however the box would affect the size of the shapes selected.(So it may be a miss when trying to outline selected group shapes, just click on an overlapping point to group the shapes) The box did not follow the outline of the shapes. When shapes are overlapped, I am able to copy, paste and delete, as needed but only if overlapping. 
 
 //https://github.com/sandram599/pri-repo-test.git
 
