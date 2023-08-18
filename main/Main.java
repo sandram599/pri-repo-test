@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import controller.JPaintController;
-import controller.ShapeBuilder;
+import controller.shapeBuilder;
 import controller.createshapeCommand;
 import controller.selectCommand;
 import model.Point;
@@ -30,25 +30,20 @@ public class Main {
 
 
 	public static void main(String[] args){
-		
-        final List<IShape> list = new ArrayList<IShape>();
-        ShapeList sList = new ShapeList(list);
-		
-	ShapeBuilder shapebuilder = new ShapeBuilder();
-        PaintCanvas paintCanvas = new PaintCanvas(sList);
+				
+		shapeBuilder shapebuilder = new shapeBuilder();
+        PaintCanvas paintCanvas = new PaintCanvas(ShapeList.getInstance()); //design pattern - singleton pattern 
         IGuiWindow guiWindow = new GuiWindow(paintCanvas);
         IUiModule uiModule = new Gui(guiWindow);
 
 
         ApplicationState appState = new ApplicationState(uiModule);
 
-        new JPaintController(uiModule, appState, sList, paintCanvas, sList, appState, shapebuilder);
+		new JPaintController(uiModule, appState, ShapeList.getInstance(), paintCanvas, ShapeList.getInstance(), appState, shapebuilder);
         
-        paintCanvas.addMouseListener(new ClickHandler(paintCanvas, appState, sList));
+        paintCanvas.addMouseListener(new ClickHandler(paintCanvas, appState, ShapeList.getInstance()));
         
-        
-        IShapeObserver observers = new createshapeCommand(appState, paintCanvas, sList, shapebuilder);
-        sList.registerObservers(observers);
-        
+        IShapeObserver observers = new createshapeCommand(appState, paintCanvas, ShapeList.getInstance(), shapebuilder);
+        ShapeList.getInstance().registerObservers(observers);        
         }        
 }
