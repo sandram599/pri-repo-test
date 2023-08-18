@@ -1,9 +1,11 @@
-package controller;
+
+	package controller;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.util.ArrayList;
 
 import model.MouseMode;
 import model.Point;
@@ -18,40 +20,28 @@ import view.gui.PaintCanvas;
 
 public class drawEllipse implements IShape { 
 	
-	private int X1, Y1, X2, Y2;
-	private Point startX, startY;
 	ShapeColor primary, secondary;
 	private Point startPoint, endPoint;
-	private int height, width, x, y;
+	private int height, width;
 	private ShapeShadingType shade;
 	private ShapeType shapetype;
-	private ShapeBuilder shapebuilder;
+	private shapeBuilder shapebuilder;
 	private ApplicationState appState;
 	PaintCanvas paintCanvas;
-	private int updateX, updateY;
-	private Point xPoint, yPoint;
 	private ShapeList shapeList;
 	
 	
 	public drawEllipse(Point startPoint, Point endPoint, ShapeColor primary, ShapeColor secondary,
 			ShapeShadingType shade, ShapeType shapetype, int height, int width) {
 		
-		this.startPoint = startPoint;
-		this.endPoint = endPoint;
+		this.startPoint = new Point(startPoint.x, startPoint.y);
+		this.endPoint = new Point(endPoint.x, endPoint.y);
 		this.primary = primary;
 		this.secondary = secondary;
 		this.shade = shade;
 		this.shapetype = shapetype;
 		this.height = height;
 		this.width = width;
-		
-	X1 = Math.min(startPoint.getX(), endPoint.getX()); 
-	X2 = Math.max(startPoint.getX(), endPoint.getX()); 
-        Y1 = Math.min(startPoint.getY(), endPoint.getY()); 
-        Y2 = Math.max(startPoint.getY(), endPoint.getY());
-        
-        width = (X2 - X1);
-        height = (Y2 - Y1);
 	
 }
 
@@ -61,36 +51,36 @@ public class drawEllipse implements IShape {
 		
 		case FILLED_IN:
 			g2d.setColor(primary.grabColors());
-			g2d.fillOval(X1, Y1, width, height);
+			g2d.fillOval(startPoint.x, startPoint.y, width, height);
 			break;
 		case OUTLINE: 
 			g2d.setColor(primary.grabColors());
 			g2d.setStroke(new BasicStroke(5));
-			g2d.fillOval(X1,Y1, width, height);
+			g2d.fillOval(startPoint.x,startPoint.y, width, height);
 			break;
 		case OUTLINE_AND_FILLED_IN:
 			g2d.setColor(primary.grabColors());
-			g2d.fillOval(X1, Y1, width, height);
+			g2d.fillOval(startPoint.x, startPoint.y, width, height);
 			g2d.setStroke(new BasicStroke(5));
 			g2d.setColor(secondary.grabColors());
-			g2d.drawOval(X1, Y1, width, height);
+			g2d.drawOval(startPoint.x, startPoint.y, width, height);
 			break;		
 		}		
 	}
 
 	@Override
-	public ShapeBuilder getShapeBuilder() {
+	public shapeBuilder getShapeBuilder() {
 		return shapebuilder;
 	}
 
 	@Override
 	public int getX() {
-		return x;
+		return startPoint.x;
 	}
 
 	@Override
 	public int getY() {
-		return y;
+		return startPoint.y;
 	}
 
 	@Override
@@ -135,8 +125,8 @@ public class drawEllipse implements IShape {
 
 	@Override
 	public void move(int xDelta, int yDelta) {
-		X1 = X1 + xDelta;
-		Y1 = Y1 + yDelta;
+		startPoint.x = startPoint.x + xDelta;
+		startPoint.y = startPoint.y + yDelta;
 	}
 
 	@Override
@@ -149,8 +139,12 @@ public class drawEllipse implements IShape {
 		Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
 		g.setStroke(stroke);
 		g.setColor(Color.BLACK);
-		g.drawOval(X1 + 1, Y1 + 1, width, height);
+		g.drawOval(startPoint.x - 6, startPoint.y - 6, width + 12, height + 12);
+	}
 
+	@Override
+	public ArrayList<IShape> getChildren() {
+		return null;
 	}
 }
 
