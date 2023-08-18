@@ -2,8 +2,9 @@ package model.interfaces;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
-import controller.ShapeBuilder;
+import controller.shapeBuilder;
 import model.Point;
 import model.ShapeColor;
 import model.ShapeShadingType;
@@ -29,7 +30,6 @@ public class Shape implements IShape {
 		this.width = width;
 		this.shade = shade;
 		this.shapetype = shapetype;	
-
 	}
 	
 
@@ -74,9 +74,6 @@ public class Shape implements IShape {
 	}
 
 	public void draw(Graphics2D g2d) {
-		// TODO Auto-generated method stub
-		//NEXT THING TO DO
-		
 	}
 
 	@Override
@@ -89,29 +86,27 @@ public class Shape implements IShape {
 		return shade;
 	}
 
-	public void moved(int xDelta, int yDelta) {	
-	}
-
-
 	@Override
-	public ShapeBuilder getShapeBuilder() {
+	public shapeBuilder getShapeBuilder() {
 		return null;
 	}
 
 	@Override
 	public void move(int xDelta, int yDelta) {
-
 	}
 
 	@Override
 	public ShapeList getshapeList() {
 		return shapeList;
-		
 	}
 
 	@Override
 	public void outline(Graphics2D g) {
-		
+	}
+
+
+	@Override
+	public ArrayList<IShape> getChildren() {
+		return null;
 	}
 }
-

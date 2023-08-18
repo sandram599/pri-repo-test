@@ -2,8 +2,9 @@ package model.interfaces;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
 
-import controller.ShapeBuilder;
+import controller.shapeBuilder;
 import model.Point;
 import model.ShapeColor;
 import model.ShapeShadingType;
@@ -24,9 +25,9 @@ public interface IShape {
 	ShapeType getShapeType();
 	ShapeShadingType getShadeType();	
 	void draw(Graphics2D g); 
-	ShapeBuilder getShapeBuilder();
+	shapeBuilder getShapeBuilder();
 	void move(int xDelta, int yDelta);
 	ShapeList getshapeList();
 	void outline(Graphics2D g);
-	
+	ArrayList<IShape> getChildren();
 }
