@@ -3,7 +3,7 @@ package model;
 import java.awt.Color;
 
 public enum ShapeColor {
-    BLACK(Color.BLACK),
+    BLACK(Color.BLACK),    
     BLUE(Color.BLUE),
     CYAN(Color.CYAN),
     DARK_GRAY(Color.DARK_GRAY),
@@ -15,16 +15,18 @@ public enum ShapeColor {
     PINK(Color.PINK),
     RED(Color.RED),
     WHITE(Color.WHITE),
-    YELLOW(Color.YELLOW);	
+    YELLOW(Color.YELLOW);
+	
 
-	private Color c;
+	private Color color;
 
-	ShapeColor(Color c) {
-		this.c = c;
+	ShapeColor(Color color) {
+		this.color = color;
 	}
 
-	public Color getShapeColor() {
-		return c;
+	public Color grabColors() {
+		return color;
 	}
 
 }
+
